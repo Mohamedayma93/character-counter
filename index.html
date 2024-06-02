@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عد الأحرف</title>
+</head>
+<body>
+    <div style="text-align: center; margin-top: 50px;">
+        <h1>عد الأحرف</h1>
+        <input type="text" id="inputText" placeholder="أدخل الجملة هنا" style="width: 300px; padding: 10px;">
+        <br><br>
+
+        <label>
+            <input type="checkbox" id="ignoreSpaces"> تجاهل المسافات
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" id="ignoreDiacritics"> تجاهل التشكيل
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" id="ignoreSpecialChars"> تجاهل العناصر الخاصة
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" id="lettersOnly"> عد الأحرف فقط
+        </label>
+        <br><br>
+
+        <button onclick="countCharacters()" style="padding: 10px 20px;">عد الأحرف</button>
+        <br><br>
+        <p id="result" style="font-size: 18px;">عدد الأحرف: </p>
+    </div>
+
+    <script>
+        function countCharacters() {
+            let inputText = document.getElementById('inputText').value;
+
+            if (document.getElementById('ignoreSpaces').checked) {
+                inputText = inputText.replace(/\s/g, '');
+            }
+
+            if (document.getElementById('ignoreDiacritics').checked) {
+                inputText = inputText.replace(/[\u064B-\u065F]/g, '');
+            }
+
+            if (document.getElementById('ignoreSpecialChars').checked) {
+                inputText = inputText.replace(/[!\"#$%&'()*+,\-.\/:;<=>?@[\\\]^_`{|}~]/g, '');
+            }
+
+            if (document.getElementById('lettersOnly').checked) {
+                inputText = inputText.replace(/[^a-zA-Z\u0621-\u064A]/g, '');
+            }
+
+            const characterCount = inputText.length;
+            document.getElementById('result').innerText = `عدد الأحرف: ${characterCount}`;
+        }
+    </script>
+</body>
+</html>
